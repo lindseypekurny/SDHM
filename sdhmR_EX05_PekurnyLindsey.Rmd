@@ -1,0 +1,109 @@
+---
+title: "Exercise Title Goes Here"
+author: "Your Name Goes Here"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: html_document
+---
+
+<!-- These are global options  
+       set root directory here 
+       NOTE mine is active; yours is commented out
+       change the path to reflect your CPU,
+       then comment out or delete mine
+--> 
+```{r global_options, include=FALSE}
+knitr::opts_knit$set(root.dir = "C:/Users/14842/Documents/SDHM/sdmR_ALLversions/sdhmR-V2022.1")
+#knitr::opts_knit$set(root.dir = "~/sdhmR-V2022.1")
+#knitr::opts_chunk$set(warning=FALSE,error=TRUE,message=FALSE)
+```
+
+---
+
+## This exercise links to Module 2.5
+
+Submit the completed exercise to us at:
+
+* t.edwards@usu.edu 
+* eric_tsakiris@fws.gov  
+
+---
+
+## Context
+
+The data are of the *Pinus edulis* Common piñon, the species you dealt with in Exercise #3 -- #4.  This exercise relies on the pseudo--absence values you generated in exercise #4, and then subsequently added to the data presence values dataframe.  Hopefully you saved those combined presence:absence dataframe, or regrettably you will need to return to exercise #4 and re--build that dataframe.
+
+The goal is to use the dataframe consisting of the presence:absence [X,Y]'s from exercise #4, and "punch" those [X,Y]'s through a stack of environmental predictor variables.  The extracted values are to be added to the exercise #4 dataframe, creating a new dataframe consisting of the: 
+
+* FNETID ID, 
+* the [X,Y]'s in the correct CRS, 
+* the presence:absence coded as [0=absence, 1=presence], and 
+* the predictor values associated with [X,Y] in the dataframe.
+
+Remember, you will have been assigned data for *edulis* having one the following four discrete labels:
+
+* **Seedlings**:  these data indicate spatial locations where seedlings of the tree have been found
+* **Mortality**: these data indicate spatial locations where mortality has been observed
+* **Persistence**: these data have no observed mortality or seedling at given spatial locations
+* **Range**: the total dataset, including all spatial locations of seedlings, mortality, and persistence
+
+---
+
+## The Data
+
+* Common piñon *Pinus edulis* sppcode=106
+* The pseudo-absence data: Wherever stored from Homework #4
+* Predictors: **`~\sdhmR-V2022.1\data\exercise\preds`** 
+  * There are a total of 16 predictor variables the directory above
+  * The variables are **`.img`** files
+* Data files:
+  * **`spp106pr_MORT.csv`**, **`spp106pr_PERS.csv`**, **`spp106pr_RANG.csv`**, **`spp106pr_SEED.csv`**
+
+---
+
+## Question #1
+
+* Import the predictor GIS variables into R
+
+```{r}
+library(raster)
+path.root <- "C:/Users/14842/Documents/SDHM/sdmR_ALLversions/sdhmR-V2022.1"
+path.pred <- paste(path.root, "/data/exercise/preds", sep = "")
+
+```
+
+
+---
+
+## Question #2
+
+* Extract predictor variables from all 16 **`.img`** files using the presence:absence [X,Y]'s
+
+```{r}
+etpt5 <- raster("C:/Users/14842/Documents/SDHM/sdhmR-V2022.1/data/exercise/preds/etpt_5.img")
+etpt6 <- raster("C:/Users/14842/Documents/SDHM/sdhmR-V2022.1/data/exercise/preds/etpt_6.img")
+
+```
+
+---
+
+## Question #3
+
+* Create a new dataframe by binding the extracted predictor variable values to the dataframe from exercise #4.
+
+---
+
+## Question #4
+
+* Save your data as R objects:
+  * Dataframe;
+  * Point shapefile with geometry in R
+  * Export as a point shapefile in ESRI format
+* Save these R objects in a **`.RData`** file
+
+These data will be used in the next exercise #6.
+
+---
+
+## The End
+
+---
